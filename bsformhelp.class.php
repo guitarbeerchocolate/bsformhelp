@@ -3,98 +3,118 @@ class bsformhelp
 {
 	function __construct($action = NULL, $id = NULL)
 	{
-		echo '<form role="form"';
+		
+	}
+
+	function holder($action = NULL, $id = NULL, $s = NULL, $submitlabel = NULL, $submitclass = NULL)
+	{
+		$output = NULL;
+		$output .= '<form role="form"';
 		if((!is_null($action)) || (!is_null($id)))
 		{
-			 echo ' method="POST"';
+			 $output .= ' method="POST"';
 		}
 		if(!is_null($action))
 		{
-			 echo ' action="'.$action.'"';
+			 $output .= ' action="'.$action.'"';
 		}
 		if(!is_null($id))
 		{
-			 echo ' id="'.$id.'"';
+			 $output .= ' id="'.$id.'"';
 		}
-		echo '>'.PHP_EOL;
+		$output .= '>'.PHP_EOL;
+		if(!is_array($s))
+		{
+			$output .= $s;	
+		}
+		else
+		{
+			foreach ($s as $field)
+			{
+				$output .= $field;
+			}
+		}
+		$output .= '<button type="submit" role="button" class="btn ';
+		if(!is_null($submitclass))
+		{
+			 $output .= $submitclass;
+		}
+		else
+		{
+			 $output .= 'btn-default';
+		}
+		$output .= '">';
+		if(!is_null($submitlabel))
+		{
+			 $output .= $submitlabel;
+		}
+		else
+		{
+			$output .= 'Submit';
+		}
+		$output .= '</button>'.PHP_EOL;
+		$output .= '</form>'.PHP_EOL;
+		return $output;
 	}
 
 	function input($type = 'text', $name = 'name', $label = 'Name', $value = NULL, $placeholder = NULL)
 	{
+		$output = NULL;
 		if(strtolower($type) !== 'hidden')
 		{
-			echo '<div class="form-group">'.PHP_EOL;
-			echo '<label for="'.$name.'">'.$label.'</label>'.PHP_EOL;
+			$output .= '<div class="form-group">'.PHP_EOL;
+			$output .= '<label for="'.$name.'">'.$label.'</label>'.PHP_EOL;
 		}
 
-		echo '<input type="'.$type.'"';
+		$output .= '<input type="'.$type.'"';
 
 		if(strtolower($type) !== 'hidden')
 		{
-			echo ' class="form-control"';
+			$output .= ' class="form-control"';
 		}
 
-		echo ' name="'.$name.'" id="'.$name.'"';
+		$output .= ' name="'.$name.'" id="'.$name.'"';
 
 		if(!is_null($value))
 		{
-			echo ' value="'.$value.'"';
+			$output .= ' value="'.$value.'"';
 		}
 		else
 		{
-			echo ' placeholder="'.$placeholder.'"';
+			$output .= ' placeholder="'.$placeholder.'"';
 		}
 
-		echo ' />'.PHP_EOL;
+		$output .= ' />'.PHP_EOL;
 
 		if(strtolower($type) !== 'hidden')
 		{
-			echo '</div><!-- .form-group -->'.PHP_EOL;
-		}    
+			$output .= '</div><!-- .form-group -->'.PHP_EOL;
+		}
+		return $output;   
 	}
 
 	function checkbox($name = 'name', $label = NULL)
 	{
-		echo '<div class="checkbox">'.PHP_EOL;
-		echo '<label>'.PHP_EOL;
-		echo '<input type="checkbox" name="'.$name.'" id="'.$name.'">' .$label.PHP_EOL;
-		echo '</label>'.PHP_EOL;
-		echo '</div><!-- .checkbox -->'.PHP_EOL;
+		$output = NULL;
+		$output .= '<div class="checkbox">'.PHP_EOL;
+		$output .= '<label>'.PHP_EOL;
+		$output .= '<input type="checkbox" name="'.$name.'" id="'.$name.'">' .$label.PHP_EOL;
+		$output .= '</label>'.PHP_EOL;
+		$output .= '</div><!-- .checkbox -->'.PHP_EOL;
+		return $output;
 	}
 
 	function textarea($name = 'name', $label = 'Name', $value = NULL)
 	{
-		echo '<textarea class="form-control" rows="3"';
-		echo ' name="'.$name.'" id="'.$name.'">';
+		$output = NULL;
+		$output .= '<textarea class="form-control" rows="3"';
+		$output .= ' name="'.$name.'" id="'.$name.'">';
 		if(!is_null($value))
 		{
-			echo $value;
+			$output .= $value;
 		}
-		echo '</textarea>'.PHP_EOL;
-	}
-
-	function submit($label = NULL, $class = NULL)
-	{
-		echo '<button type="submit" role="button" class="btn ';
-		if(!is_null($class))
-		{
-			 echo $action;
-		}
-		else
-		{
-			 echo 'btn-default';
-		}
-		echo '">';
-		if(!is_null($label))
-		{
-			 echo $label;
-		}
-		else
-		{
-			echo 'Submit';
-		}
-		echo '</button>'.PHP_EOL;
-		echo '</form>'.PHP_EOL;
+		$output .= '</textarea>'.PHP_EOL;
+		return $output;
 	}
 }
 ?>

@@ -34,10 +34,13 @@ error_reporting(-1);
           <?php
           require_once 'bsformhelp.class.php';
           $fh = new bsformhelp;
-          $fh->input();
-          $fh->checkbox();
-          $fh->textarea();
-          $fh->submit();
+          $input = $fh->input('text', $name = 'name', $label = 'Name', $value = NULL, $placeholder = 'Add your text');
+          $fieldArray = array(
+            $fh->input('text', $name = 'name', $label = 'Name', $value = NULL, $placeholder = 'Add your name'),
+            $fh->input('text', $name = 'address', $label = 'Address', $value = NULL, $placeholder = 'Add your address')
+          );
+          // echo $fh->holder(NULL, NULL, $input, NULL, NULL);
+          echo $fh->holder(NULL, NULL, $fieldArray, NULL, NULL);
           ?>
         </div>
       </div>
